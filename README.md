@@ -1,17 +1,18 @@
-# mud2scummvm — The Human-Friendly Cave Entrance
+# mud2scummvm — MUD → Point-and-Click Bridge
 
-Bridge between the agent's MUD text world and a SCUMM-like point-and-click adventure interface. Humans step into the agent's cave through familiar adventure game mechanics.
+Translate the agent's text-based MUD world into a SCUMM-like point-and-click adventure interface. Humans step into the agent's cave through familiar adventure game mechanics.
 
-## Concept
+**Part of [SuperInstance OpenConstruct](https://github.com/SuperInstance/OpenConstruct).**
 
-Agents live in a text-based MUD. Humans need visual abstractions to understand and adjust what agents see and do. This crate translates:
+## What This Gives You
 
-- **MUD text → Visual scenes**: Room descriptions become illustrated scenes with objects and exits
-- **Click → MUD commands**: Pointing at an object generates "examine X", dragging items generates "use X with Y"  
-- **Agent thoughts → Speech bubbles**: NPC dialogs and system messages become floating text
-- **Policy sliders → MUD settings**: Adjusting "Vision Sensitivity" sends `set policy vision_sensitivity high`
+- **MUD text → visual scenes** — room descriptions become illustrated scenes with objects and exits
+- **Click → MUD commands** — pointing at objects generates `examine X`, dragging generates `use X with Y`
+- **Agent thoughts → speech bubbles** — NPC dialogs and system messages become floating text
+- **Policy sliders → MUD settings** — adjusting "Vision Sensitivity" maps to `set policy vision_sensitivity high`
+- **Bidirectional bridge** — any visual action maps back to a MUD command and vice versa
 
-## API
+## Quick Start
 
 ```rust
 use mud2scummvm::{MudParser, SceneComposer, InteractionMapper};
@@ -21,19 +22,39 @@ let parser = MudParser::new();
 let events = parser.parse_all("=== Kitchen ===\nExits: north\nObjects: kettle\n");
 
 // Compose visual scene
-let mut composer = SceneComposer::new();
-let scene = composer.compose(&events);
+let scene = SceneComposer::new().compose(&events);
 // scene.title, scene.exits, scene.objects, scene.dialogs, scene.policy_sliders
 
-// Map human interactions back to agent commands
+// Map human interactions back to MUD commands
 let mapper = InteractionMapper::new();
-let cmd = mapper.map_click("kettle", "examine"); // "examine kettle"
-let cmd = mapper.map_drag("key", "door");         // "use key with door"
-let cmd = mapper.map_slider("Vision Sensitivity", 0.8); // "set policy vision_sensitivity high"
+mapper.map_click("kettle", "examine");     // "examine kettle"
+mapper.map_drag("key", "door");            // "use key with door"
+mapper.map_slider("Vision Sensitivity", 0.8); // "set policy vision_sensitivity high"
 ```
 
-## The Cave Wall
+## API Reference
 
-The SCUMM interface IS the cave wall from Plato's allegory. The agent sees shadows (text descriptions of the real world). The human sees a friendly point-and-click abstraction of those same shadows. Both are looking at the same thing from different sides of the wall.
+| Type | Description |
+|------|-------------|
+| `MudParser` | Parses MUD room text into structured events |
+| `SceneComposer` | Builds visual scene data from parsed events |
+| `InteractionMapper` | Maps click/drag/slider input to MUD commands |
+| `Scene` | Visual scene with title, exits, objects, dialogs, sliders |
+| `MudEvent` | Parsed event: room description, item, NPC dialog, etc. |
 
-Part of the [SuperInstance OpenConstruct](https://github.com/SuperInstance/OpenConstruct) ecosystem.
+## How It Fits
+
+The SCUMM interface is the cave wall from Plato's allegory — the agent sees shadows (text descriptions), the human sees a friendly point-and-click abstraction of those same shadows. Works with [mud-arena](https://github.com/SuperInstance/mud-arena) for world simulation and [plato-puppeteer](https://github.com/SuperInstance/plato-puppeteer) for desktop integration.
+
+## Installation
+
+Add to your `Cargo.toml`:
+
+```toml
+[dependencies]
+mud2scummvm = "0.1"
+```
+
+## License
+
+MIT
