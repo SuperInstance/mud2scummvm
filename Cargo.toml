@@ -1,0 +1,8 @@
+[package]
+name = "mud2scummvm"
+version = "0.1.0"
+edition = "2021"
+description = "Bridge between agent MUD world and SCUMM-like point-and-click UI for OpenConstruct"
+license = "Apache-2.0"
+
+[dependencies]
