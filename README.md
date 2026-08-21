@@ -44,7 +44,7 @@ mapper.map_slider("Vision Sensitivity", 0.8); // "set policy vision_sensitivity 
 
 ## How It Fits
 
-The SCUMM interface is the cave wall from Plato's allegory — the agent sees shadows (text descriptions), the human sees a friendly point-and-click abstraction of those same shadows. Works with [mud-arena](https://github.com/SuperInstance/mud-arena) for world simulation and [plato-puppeteer](https://github.com/SuperInstance/plato-puppeteer) for desktop integration.
+The SCUMM interface is the cave wall from Plato's allegory — the agent sees shadows (text descriptions), the human sees a friendly point-and-click abstraction of those same shadows. Works with [mud-engine](https://github.com/SuperInstance/mud-engine) for world simulation and [plato-puppeteer](https://github.com/SuperInstance/plato-puppeteer) for desktop integration.
 
 ## Installation
 
