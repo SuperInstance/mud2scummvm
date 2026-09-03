@@ -1,5 +1,7 @@
 # mud2scummvm — MUD → Point-and-Click Bridge
 
+<p align="center"><img src="assets/images/hero.jpg" alt="Inside the cave: an amber CRT casting the MUD's text as a painted point-and-click adventure scene on the wall" width="640"></p>
+
 Translate the agent's text-based MUD world into a SCUMM-like point-and-click adventure interface. Humans step into the agent's cave through familiar adventure game mechanics.
 
 **Part of [SuperInstance OpenConstruct](https://github.com/SuperInstance/OpenConstruct).**
